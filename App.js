@@ -66,8 +66,8 @@ const App: () => React$Node = () => {
   const _showToast = (type: string) => {
     Toast.show({
       type,
-      text1: 'Hello',
-      text2: 'This is some something 👋' + type,
+      text1: 'The type is : ' + type,
+      text2: 'This is a toast 👋',
       topOffset: Platform.select({
         ios: getStatusBarHeight() + BASE_OFFSET_TOP,
         android: BASE_OFFSET_TOP,
