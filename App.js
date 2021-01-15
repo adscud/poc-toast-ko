@@ -7,11 +7,43 @@
  */
 
 import React from 'react';
-import {SafeAreaView, Button, StatusBar, Platform} from 'react-native';
-import Toast from 'react-native-toast-message';
+import {
+  SafeAreaView,
+  Button,
+  StatusBar,
+  Platform,
+} from 'react-native';
+import Toast, {BaseToast} from 'react-native-toast-message';
 import {getStatusBarHeight} from 'react-native-iphone-x-helper';
 
 const BASE_OFFSET_TOP = 16;
+const SUCCESS_COLOR = '#00D68F';
+const ERROR_COLOR = '#FF3D71';
+const INFO_COLOR = '#0095FF';
+const toastConfig = {
+  success: (props) => (
+    <BaseToast
+      style={{borderLeftColor: SUCCESS_COLOR}}
+      contentContainerStyle={{paddingHorizontal: 16}}
+      {...props}
+    />
+  ),
+  error: (props) => (
+    <BaseToast
+      style={{borderLeftColor: ERROR_COLOR}}
+      contentContainerStyle={{paddingHorizontal: 16}}
+      {...props}
+    />
+  ),
+  info: (props) => (
+    <BaseToast
+      style={{borderLeftColor: INFO_COLOR}}
+      contentContainerStyle={{paddingHorizontal: 16}}
+      {...props}
+    />
+  ),
+};
+
 const App: () => React$Node = () => {
   const _showToast = (type: string) => {
     Toast.show({
@@ -22,6 +54,7 @@ const App: () => React$Node = () => {
         ios: getStatusBarHeight() + BASE_OFFSET_TOP,
         android: BASE_OFFSET_TOP,
       }),
+      onPress: () => Toast.hide(),
     });
   };
 
@@ -33,7 +66,7 @@ const App: () => React$Node = () => {
         <Button title={'Show info'} onPress={() => _showToast('info')} />
         <Button title={'Show error'} onPress={() => _showToast('error')} />
       </SafeAreaView>
-      <Toast ref={(ref) => Toast.setRef(ref)} />
+      <Toast config={toastConfig} ref={(ref) => Toast.setRef(ref)} />
     </>
   );
 };
