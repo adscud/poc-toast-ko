@@ -7,7 +7,13 @@
  */
 
 import React from 'react';
-import {SafeAreaView, Button, StatusBar, Platform} from 'react-native';
+import {
+  SafeAreaView,
+  Button,
+  StatusBar,
+  Platform,
+  Dimensions,
+} from 'react-native';
 import Toast, {BaseToast} from 'react-native-toast-message';
 import {getStatusBarHeight} from 'react-native-iphone-x-helper';
 
@@ -15,47 +21,66 @@ const BASE_OFFSET_TOP = 16;
 const SUCCESS_COLOR = '#00D68F';
 const ERROR_COLOR = '#FF3D71';
 const INFO_COLOR = '#0095FF';
-const TEXT_1_STYLE = {
-  fontSize: 16,
-  fontWeight: '600',
-};
-const TEXT_2_STYLE = {
-  fontSize: 12,
-  fontWeight: '300',
-};
 const BASE_VISIBILITY_TIME = 4000;
 const ACTIVE_OPACITY = 1;
-
+const TEXT_STYLE = {
+  fontSize: 15,
+  fontWeight: '500',
+};
+const TOAST_STYLE = {
+  height: 'auto',
+  minHeight: 54,
+  width: Dimensions.get('window').width - 32,
+  alignSelf: 'center',
+};
 const toastConfig = {
   success: (props) => (
     <BaseToast
-      style={{borderLeftColor: SUCCESS_COLOR}}
-      contentContainerStyle={{paddingHorizontal: 16}}
+      style={{
+        borderLeftColor: SUCCESS_COLOR,
+        ...TOAST_STYLE,
+      }}
+      contentContainerStyle={{
+        padding: 16,
+        backgroundColor: 'rgba(0, 214, 143, 0.08)',
+      }}
       trailingIcon={null}
-      text1Style={TEXT_1_STYLE}
-      text2Style={TEXT_2_STYLE}
+      text1Style={TEXT_STYLE}
+      text2Style={TEXT_STYLE}
       activeOpacity={ACTIVE_OPACITY}
       {...props}
     />
   ),
   error: (props) => (
     <BaseToast
-      style={{borderLeftColor: ERROR_COLOR}}
-      contentContainerStyle={{paddingHorizontal: 16}}
+      style={{
+        borderLeftColor: ERROR_COLOR,
+        ...TOAST_STYLE,
+      }}
+      contentContainerStyle={{
+        padding: 16,
+        backgroundColor: 'rgba(255, 61, 113, 0.08)',
+      }}
       trailingIcon={null}
-      text1Style={TEXT_1_STYLE}
-      text2Style={TEXT_2_STYLE}
+      text1Style={TEXT_STYLE}
+      text2Style={TEXT_STYLE}
       activeOpacity={ACTIVE_OPACITY}
       {...props}
     />
   ),
   info: (props) => (
     <BaseToast
-      style={{borderLeftColor: INFO_COLOR}}
-      contentContainerStyle={{paddingHorizontal: 16}}
+      style={{
+        borderLeftColor: INFO_COLOR,
+        ...TOAST_STYLE,
+      }}
+      contentContainerStyle={{
+        padding: 16,
+        backgroundColor: 'rgba(0, 149, 255, 0.08)',
+      }}
       trailingIcon={null}
-      text1Style={TEXT_1_STYLE}
-      text2Style={TEXT_2_STYLE}
+      text1Style={TEXT_STYLE}
+      text2Style={TEXT_STYLE}
       activeOpacity={ACTIVE_OPACITY}
       {...props}
     />
@@ -66,8 +91,8 @@ const App: () => React$Node = () => {
   const _showToast = (type: string) => {
     Toast.show({
       type,
-      text1: 'The type is : ' + type,
-      text2: 'This is a toast 👋',
+      text1: 'Félicitations, votre groupe est bien créé.',
+      text2: 'Vous pouvez inviter tous vos amis à vous rejoindre !',
       topOffset: Platform.select({
         ios: getStatusBarHeight() + BASE_OFFSET_TOP,
         android: BASE_OFFSET_TOP,
